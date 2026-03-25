@@ -3,9 +3,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { JsonRepository } from './json-store';
 import { Task, TaskStatus, TaskStatusHistory, TaskDependency } from '../models';
 
-const taskRepo = new JsonRepository<Task>(path.join(__dirname, '../data/tasks.json'));
-const historyRepo = new JsonRepository<TaskStatusHistory>(path.join(__dirname, '../data/task_status_history.json'));
-const dependencyRepo = new JsonRepository<TaskDependency>(path.join(__dirname, '../data/task_dependencies.json'));
+const dataDir = path.join(process.cwd(), 'src', 'data');
+
+const taskRepo = new JsonRepository<Task>(path.join(dataDir, 'tasks.json'));
+const historyRepo = new JsonRepository<TaskStatusHistory>(path.join(dataDir, 'task_status_history.json'));
+const dependencyRepo = new JsonRepository<TaskDependency>(path.join(dataDir, 'task_dependencies.json'));
 
 export function findAll(
   filters?: Partial<Task>,
@@ -17,6 +19,10 @@ export function findAll(
   const start = (page - 1) * limit;
   const data = all.slice(start, start + limit);
   return { data, total };
+}
+
+export function findAllUnpaginated(filters?: Partial<Task>): Task[] {
+  return taskRepo.findAll(filters);
 }
 
 export function findById(id: string): Task | undefined {

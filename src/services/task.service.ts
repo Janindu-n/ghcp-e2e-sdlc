@@ -103,7 +103,7 @@ export function getProjectSummary(): {
   blocked: number;
   toDo: number;
 } {
-  const { data: tasks } = taskRepository.findAll(undefined, 1, Number.MAX_SAFE_INTEGER);
+  const tasks = taskRepository.findAllUnpaginated();
   return {
     total: tasks.length,
     completed: tasks.filter(t => t.status === TaskStatus.COMPLETED).length,

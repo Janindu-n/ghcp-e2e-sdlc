@@ -2,7 +2,7 @@ import * as path from 'path';
 import { JsonRepository } from './json-store';
 import { User } from '../models';
 
-const userRepo = new JsonRepository<User>(path.join(__dirname, '../data/users.json'));
+const userRepo = new JsonRepository<User>(path.join(process.cwd(), 'src', 'data', 'users.json'));
 
 export function findById(id: string): User | undefined {
   return userRepo.findById(id);

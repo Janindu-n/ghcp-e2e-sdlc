@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import * as taskService from '../services/task.service';
 import { TaskStatus } from '../models';
 
-export async function createTask(req: Request, res: Response, next: NextFunction): Promise<void> {
+export function createTask(req: Request, res: Response, next: NextFunction): void {
   const start = Date.now();
   try {
     const task = taskService.createTask(req.body);
@@ -14,7 +14,7 @@ export async function createTask(req: Request, res: Response, next: NextFunction
   }
 }
 
-export async function listTasks(req: Request, res: Response, next: NextFunction): Promise<void> {
+export function listTasks(req: Request, res: Response, next: NextFunction): void {
   const start = Date.now();
   try {
     const page = parseInt(req.query['page'] as string) || 1;
@@ -28,7 +28,7 @@ export async function listTasks(req: Request, res: Response, next: NextFunction)
   }
 }
 
-export async function getTaskById(req: Request, res: Response, next: NextFunction): Promise<void> {
+export function getTaskById(req: Request, res: Response, next: NextFunction): void {
   const start = Date.now();
   try {
     const task = taskService.getTaskById(req.params['id']!);
@@ -40,7 +40,7 @@ export async function getTaskById(req: Request, res: Response, next: NextFunctio
   }
 }
 
-export async function updateTaskStatus(req: Request, res: Response, next: NextFunction): Promise<void> {
+export function updateTaskStatus(req: Request, res: Response, next: NextFunction): void {
   const start = Date.now();
   try {
     const { status, changedBy, note } = req.body as { status: TaskStatus; changedBy: string; note: string };
@@ -53,7 +53,7 @@ export async function updateTaskStatus(req: Request, res: Response, next: NextFu
   }
 }
 
-export async function getProjectSummary(req: Request, res: Response, next: NextFunction): Promise<void> {
+export function getProjectSummary(req: Request, res: Response, next: NextFunction): void {
   const start = Date.now();
   try {
     const summary = taskService.getProjectSummary();
